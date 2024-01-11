@@ -1,4 +1,4 @@
-import { CreateToken } from "@/app/utility/JWTTokenHelper";
+import { CreateToken } from "@/utility/JWTTokenHelper";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
@@ -10,7 +10,7 @@ export async function POST(req, res) {
             where: reqBody
         })
         if(!result) {
-            return NextResponse.json({status: 'no user found'})
+            return NextResponse.json({status: 'fail', data: result})
         } else {
             let token=await CreateToken(result['email'], result['id'])
             let expireDuration=new Date(Date.now()+24*60*60*1000)
@@ -18,6 +18,6 @@ export async function POST(req, res) {
             return NextResponse.json({status:"success", data: token}, {status:200, headers: {'set-cookie': cookieString}})  
         }
     } catch(e) {
-        return NextResponse.json({status:"failed", data: e})
+        return NextResponse.json({status:"fail", data: e})
     }
 }
