@@ -22,7 +22,6 @@ export async function POST (req, res) {
             return NextResponse.json({status: "fail", data: "Password change failed"})
         }
     } catch(e) {
-        console.log(e)
         return NextResponse.json({status: "fail", data: e})
     }
 }

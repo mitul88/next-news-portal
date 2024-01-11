@@ -13,7 +13,6 @@ export async function POST (req, res) {
             return NextResponse.json({status: "fail", data: "Invalid OTP code"})
         }
     } catch(e) {
-        console.log(e)
         return NextResponse.json({status: "fail", data: e})
     }
 }
